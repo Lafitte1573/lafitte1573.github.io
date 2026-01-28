@@ -1,122 +1,354 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>项目主页模板</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', 'Noto Sans SC', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #ffffff;
-        }
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Sigma-MoE-Tiny: An extremely sparse Mixture-of-Experts (MoE) model for efficient and scalable deep learning.">
+  <meta name="keywords" content="Sigma-MoE-Tiny, MoE, Sparse Model, Deep Learning">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sigma-MoE-Tiny: Towards Super-Sparse MoE Models</title>
 
-        /* 标题区 */
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/globe.svg">
 
-        /* 按钮组 */
-        .link-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        .btn {
-            background-color: #363636;
-            color: white;
-            padding: 8px 20px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            transition: background 0.3s;
-        }
-        .btn:hover { background-color: #000; }
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+mjx-container[display="true"] {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+</style>
 
-        /* 彩色高亮通知条 */
-        .highlight-box {
-            background-color: #e3f2fd; /* 浅蓝色背景 */
-            border-radius: 8px;
-            padding: 15px 25px;
-            text-align: center;
-            font-size: 1.1rem;
-            margin-bottom: 40px;
-            border: 1px solid #bbdefb;
-        }
-        .highlight-box b { color: #d32f2f; } /* 橙红色强调 */
-
-        /* 双栏图片展示区 */
-        .columns {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 20px;
-        }
-        .column {
-            flex: 1;
-            min-width: 300px;
-            background-color: #fffaf0; /* 淡淡的底色，类似 Sigma-MoE 图1 */
-            padding: 15px;
-            border: 1px solid #efefef;
-            border-radius: 4px;
-        }
-        .column img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        .caption {
-            text-align: center;
-            font-size: 0.9rem;
-            margin-top: 10px;
-            color: #666;
-        }
-
-        @media (max-width: 768px) {
-            .columns { flex-direction: column; }
-        }
-    </style>
 </head>
 <body>
-
-    <div class="header">
-        <h1>Sigma-Project: 推理能力的飞跃</h1>
-        <p>作者：张三, 李四 (AI 研究院)</p>
-        
-        <div class="link-buttons">
-            <a href="#" class="btn">Paper</a>
-            <a href="#" class="btn">Code</a>
-            <a href="#" class="btn">arXiv</a>
+<!-- 
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="#">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="#">MoE Survey</a>
+          <a class="navbar-item" href="#">Sparse Models</a>
+          <a class="navbar-item" href="#">Efficient Deep Learning</a>
         </div>
+      </div>
     </div>
+  </div>
+</nav> -->
 
-    <div class="highlight-box">
-        🚀 我们的模型拥有 <b>20B</b> 总参数，但推理时仅需激活 <b>0.5B</b> 参数！
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Sigma-MoE-Tiny:<br>Towards Super-Sparse MoE Models</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="">Sigma v-Team</a></span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Microsoft Research</span>
+          </div>
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2512.16248" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2512.16248" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/microsoft/ltp-megatron-lm" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+</section>
 
-    <div class="columns">
-        <div class="column">
-            <img src="https://via.placeholder.com/500x400?text=Performance+Curve" alt="性能曲线">
-            <p class="caption">图 1: 模型在不同规模下的性能表现</p>
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div style="background-color: #e8f4f8; padding: 20px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
+        <!-- <h3 class="title is-4" style="color: #0d5f7f; margin-bottom: 10px;">Key Highlights</h3> -->
+        <p class="is-size-5" style="color: #0d5f7f; font-weight: bold;">
+            Sigma-MoE-Tiny has <span style="color: #d73e1f; font-size: 1.2em;">20B</span> total parameters, but only <span style="color: #d73e1f; font-size: 1.2em;">0.5B</span> are activated <strong style="color: #0d5f7f;">!</strong>
+        </p>
+      </div>
+      <img src="./static/images/overview.jpg" style="width: 100%; border: none;">
+      <p style="font-size: 1em; text-align: center; margin-top: 5px;">
+        Figure 1: With a total-to-activated ratio of 40:1, Sigma-MoE-Tiny achieves the highest sparsity among open-source MoE models. Leveraging this super-high sparsity, Sigma-MoE-Tiny delivers top-tier performance at significantly lower cost.
+      </p>
         </div>
-        <div class="column">
-            <img src="https://via.placeholder.com/500x400?text=Sparsity+Analysis" alt="稀疏度分析">
-            <p class="caption">图 2: 激活参数与推理时间的对应关系</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+  <p>
+    Sigma-MoE-Tiny is an ultra-sparse Mixture-of-Experts (MoE) language model designed for efficient scalability. It achieves the <strong>highest sparsity</strong> among open-source MoE models, featuring <strong>20B total parameters with only 0.5B activated</strong>.
+  </p>
+  <p>
+    To enable such extreme sparsity, Sigma-MoE-Tiny has up to <strong>96 experts per layer</strong>, activating just <strong>one expert per token</strong>. This design introduces severe load-balancing challenges, where the standard load balancing loss become ineffective in the lower layers. We address this with a progressive sparsification schedule that stabilizes training while maintaining balanced expert utilization.
+  </p>
+  <p>
+    Sigma-MoE-Tiny is pre-trained on a high-quality corpus and further post-trained to enhance instruction-following and reasoning capabilities. Throughout the entire pipeline, training remains highly stable, with no irrecoverable loss spikes.
+  </p>
+  <p>
+    Despite activating only 0.5B parameters, Sigma-MoE-Tiny delivers top-tier performance compared to models of similar or even substantially larger scale. We also provide a deep dive into <strong>load balancing under extreme sparsity</strong>, offering insights for future sparse-MoE model design.
+  </p>
         </div>
+      </div>
     </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Challenges in Load Balancing</h2>
+        <div class="content has-text-justified">
+          <p>
+            We observe that simply applying the standard load balancing loss (LBL) to an extremely sparse MoE architecture reveals a significant drawback: <strong>routing collapse in the lower layers</strong>. In Layer 0, the min-loaded expert gets almost no tokens, while the max-loaded expert receives nearly 3\(\times\) the tokens expected under uniform allocation (Figure 2a).
+          </p>
+          <p>  
+            Looking more closely at how LBL behaves, we find that the token allocation fractions \(f\) and gating probabilities \(p\) exhibit different patterns in lower versus higher layers. In higher layers (Layer 52), \(f\) becomes roughly uniform while \(p\) remains non-uniform (Figure 2c). In lower layers (Layer 0), the opposite happens (Figure 2b): \(p\) moves toward uniformity but \(f\) stays uneven, which breaks the intended load balance. Despite this, the LBL still reaches its minimum.
+          </p>
+            <div style="text-align: center; margin-top: 30px;">
+            <img src="./static/images/lbl.jpg" style="width: 95%; border: none;">
+            </div>
+          <p style="text-align: center; font-size: 0.9em; margin-top: 5px; margin-bottom: 30px;">
+            Figure 2: (a) Relative deviation from uniform token allocation in Layer 0. (b) and (c) show the distribution of token allocation fraction \(f\) and gating probability \(p\) across all experts in Layer 0 and Layer 52, respectively.
+          </p>
+          <p>
+            We attribute this deficiency to inherent characteristics of the LBL itself. The desired goal of this loss is to push the token allocation fractions \(f\) toward a uniform distribution. However, LBL can in fact reach its minimum by making either \(f\) or \(p\) uniform. Under high sparsity, routing tokens in the lower layers becomes more difficult. As a result, the LBL optimization takes a shortcut by driving \(p\) toward uniformity, resulting in an unintended minimum that fails to achieve true load balance.
+          </p>
+          <!-- <h3 class="title is-4">Progressive Sparsification Scheduling</h3> -->
+          <p>
+            To fix this, we apply a progressive sparsification schedule for Sigma-MoE-Tiny. The core idea is to start with a modest sparsity in lower layers when training from scratch and then transition to our proposed high sparsity later in the training process.
+            This simple schedule significantly improves load balance in the lower layers, as shown in Figure 2a.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Model Performance</h2>
+        <div class="content has-text-justified">
+          <p>
+            <strong>Pre-training Evaluation:</strong> As shown in Table 1, despite having only 0.5B active parameters, Sigma-MoE-Tiny-Base achieves strong performance across benchmarks compared to other counterparts with comparable or larger model scales.
+          </p>
+          <div style="text-align: center; margin-top: 30px;">
+            <img src="./static/images/eval_base.jpg" style="width: 80%; border: none;">
+            <p style="font-size: 0.9em; margin-top: 5px; margin-bottom: 30px;">Table 1: Performance comparison among Sigma-MoE-Tiny-Base and other base models.</p>
+          </div>
+          <p>
+            <strong>Post-training Evaluation:</strong> Table 2 shows that post-trained Sigma-MoE-Tiny with only 0.5B activated parameters can match or surpass much larger dense and MoE models, highlighting the effectiveness of super-high MoE sparsity in enhancing generalization and reasoning efficiency.
+          </p>
+          <div style="text-align: center; margin-top: 30px;">
+            <img src="./static/images/eval_inst.jpg" style="width: 95%; border: none;">
+            <p style="font-size: 0.9em; margin-top: 5px; margin-bottom: 30px;">Table 2: Performance Comparison among Sigma-MoE-Tiny and baseline models.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3" style="text-align: center">Analysis</h2>
+        <div class="content has-text-justified">
+          <h3 class="title is-4">Effect of Progressive Sparsification Scheduling</h3>
+          <p>
+      The proposed progressive sparsification schedule not only improves expert load balance during training but also preserves nearly the same performance.
+      As shown in Table 3, we compare two settings starting from the same intermediate checkpoint: one continuing with the initial sparsity and the other switched to the target sparsity.
+      Notably, although converting to the target sparsity loses 0.15B activated parameters (approximately 25%), the resulting performance is largely preserved.
+          </p>
+          <div style="text-align: center; margin-top: 30px;">
+            <img src="./static/images/analysis1.jpg" style="width: 80%; border: none;">
+            <p style="font-size: 0.9em; margin-top: 5px; margin-bottom: 30px;">Table 3: Effect of progressive sparsification scheduling on model performance.</p>
+          </div>
+        </div>
+        <div class="content has-text-justified">
+        <h3 class="title is-4" style="text-align: left;">Comparison of Different Load Balancing Strategies</h3>
+          <p>
+            We also experimented with an auxiliary-loss-free approach to maintain load balancing, which is adopted in DeepSeek-V3.
+            However, we observe that this loss-free approach can cause significant load imbalance in the lower layers under high MoE sparsity. As shown in Figure 3, introducing this loss-free balancing strategy leads to the min-loaded expert consistently receiving zero tokens after 2K training steps, while the max-loaded expert is allocated nearly 40\(\times\) the tokens expected under uniform allocation.
+            Further analysis reveals that the bias terms introduced by this strategy in the lower layers will continually increase as training progresses, eventually dominating the gating scores. As a result, the expert with the highest bias receives the overwhelming majority of tokens.
+          </p>
+            <div style="text-align: center; margin-top: 30px;">
+            <img src="./static/images/analysis2.jpg" style="width: 80%; border: none;">
+            <p style="font-size: 0.9em; margin-top: 5px; margin-bottom: 30px;">Figure 3: Comparison of different load balancing strategies.</p>
+          </div>
+          <!-- <p> 
+            We attribute this deficiency to the following mechanism: According to this strategy, an expert's bias will be increased when it receives fewer tokens than the average. Considering that high MoE sparsity makes uniformly distributing tokens in the lower layers more difficult, this load imbalance basically persists throughout the training process and causes the bias terms to continue growing upward. Ultimately, the biases of all experts reach very high magnitudes. At this point, the portion of the gating scores provided by the router can no longer influence the final routing, leading to the expert with the highest bias to capture nearly all tokens.
+          </p> -->
+        </div>
+        <div class="content has-text-justified">
+          <h3 class="title is-4" style="text-align: left;">Exploring Native Load Balancing under High Sparsity</h3>
+            <p>
+            To achieve native load balancing under high sparsity without modifying the model architecture, we introduce a new LBL variant, termed Top-1 LBL. 
+            The core idea of this variant is to directly optimize the L2 norm of the token allocation fraction across all experts, theoretically avoiding the optimization bias present in conventional LBL. However, since the token allocation fraction is non-differentiable, we use the differentiable gating probabilities as an effective approximation, obtained by applying a temperature-scaled softmax to the routing logits. Formally, the Top-1 LBL is defined as:
+            </p>
+                        
+            <div class="math-block" style="text-align:center; margin: 1rem 0;">
+                $$\mathrm{LBL}_{\mathrm{top\text{-}1}} \;=\; \frac{N_E \sum_{i=1}^{N_E} \hat{f}_i^2}{\bar{p}_{\mathrm{top\text{-}1}}},$$
+              </div>
+
+              <p style="margin-top: 0.5rem;">
+                where the token allocation fraction \( \hat{f}_i \) for expert \( i \) is computed as
+              </p>
+
+              <div class="math-block" style="text-align:center; margin: 1rem 0;">
+                $$\hat{f}_i \;=\; \frac{1}{N_B}\sum_{j=1}^{N_B} p_{i,j}, \qquad
+                  p_{i,j} \;=\; \frac{\exp(\mathrm{logits}_{i,j}/\tau)}{\sum_{k=1}^{N_E}\exp(\mathrm{logits}_{k,j}/\tau)}.$$
+              </div>
+
+              <p style="margin-top: 0.5rem;">
+                The average top-1 probability \( \bar{p}_{\mathrm{top\text{-}1}} \) in the denominator is defined as
+              </p>
+
+              <div class="math-block" style="text-align:center; margin: 1rem 0;">
+                $$\bar{p}_{\mathrm{top\text{-}1}} \;=\; \frac{1}{N_B}\sum_{j=1}^{N_B} \operatorname{Top\text{-}1}\big(p_{i,j}\big).$$
+              </div>
+
+              <p>
+                Here, \(N_B\) is the number of tokens in a batch, \(\mathrm{logits}_{i,j}\) is the routing logit of expert \(i\) for token \(j\), and \(\tau\) is the softmax temperature.
+              </p>
+            <p>
+            As shown in Figure 4, applying Top-1 LBL significantly improves load balancing under super-high sparsity, steadily approaching a uniform token allocation. However, we also find that overly balanced expert utilization may sacrifice model performance. We attribute this issue to the inherent trade-off between load balance and performance, and leave improving this trade-off as an important direction for future work.
+            </p>
+            <div style="text-align: center; margin-top: 30px;">
+            <img src="./static/images/analysis3.jpg" style="width: 80%; border: none;">
+            <p style="font-size: 0.9em; margin-top: 5px; margin-bottom: 30px;">Figure 4: Comparison between Top-1 LBL and conventional LBL.</p>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3" style="text-align: center">Cite Us</h2>
+        <div style="position: relative; background-color: #f5f5f5; padding: 20px; border-radius: 8px; border: 1px solid #ddd;">
+          <button onclick="copyBibtex()" style="position: absolute; top: 10px; right: 10px; padding: 8px 12px; background-color: #0d5f7f; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9em;">
+            <i class="fas fa-copy"></i> Copy
+          </button>
+          <pre id="bibtex-text" style="margin-top: 0; overflow-x: auto;"><code>@misc{hu2025sigmamoetinytechnicalreport,
+      title={Sigma-MoE-Tiny Technical Report}, 
+      author={Qingguo Hu and Zhenghao Lin and Ziyue Yang and Yucheng Ding and Xiao Liu and Yuting Jiang and Ruizhe Wang and Tianyu Chen and Zhongxin Guo and Yifan Xiong and Rui Gao and Lei Qu and Jinsong Su and Peng Cheng and Yeyun Gong},
+      year={2025},
+      eprint={2512.16248},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2512.16248}, 
+}</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+function copyBibtex() {
+  const bibtexText = document.getElementById('bibtex-text').innerText;
+  navigator.clipboard.writeText(bibtexText).then(() => {
+    alert('BibTeX copied to clipboard!');
+  });
+}
+</script>
+<!-- 
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link" href="#">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="#" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            Please remember to remove any analytics code you do not want on your website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer> -->
 
 </body>
 </html>
